@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN useradd --create-home appuser
 
 COPY /app ./app/
-RUN RUN chown -R appuser:appuser /app
+RUN chown -R appuser:appuser /app
 
 USER appuser
 
