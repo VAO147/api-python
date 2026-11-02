@@ -1,0 +1,35 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarqube:
+    name: SonarQube Scan
+    # Substitua pela label exata do seu self-hosted runner
+    runs-on: VM-CI
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # Desativa o shallow clone para que o SonarQube consiga analisar o histórico do Git
+          fetch-depth: 0 
+
+      # Opcional: Se seu projeto precisar ser compilado antes da análise (Ex: Java, .NET)
+      # Adicione os passos de build aqui se necessário.
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        # Opcional: Você pode passar argumentos extras se não usar o arquivo sonar-project.properties
+        # with:
+        #   args: >
+        #     -Dsonar.projectKey=meu-projeto
+        #     -Dsonar.sources=src
