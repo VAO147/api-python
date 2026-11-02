@@ -11,7 +11,7 @@ jobs:
   sonarqube:
     name: SonarQube Scan
     # Substitua pela label exata do seu self-hosted runner
-    runs-on: VM-CI
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Code
